@@ -33,7 +33,7 @@ const isPassport = (object) => {
 
 // byr (Birth Year) - four digits; at least 1920 and at most 2002.
 const isBirthYear = (str) => {
-  isYear(str, 1920, 2002);
+  return isYear(str, 1920, 2002);
 };
 
 // iyr (Issue Year) - four digits; at least 2010 and at most 2020.
@@ -74,7 +74,7 @@ const isHeight = (str) => {
 
 // hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
 const isHairColor = (str) => {
-  return /^#([0-9a-f]{6})$/.test(str);
+  return /^#[0-9a-f]{6}$/.test(str);
 };
 
 // ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
@@ -95,7 +95,7 @@ const isEyeColor = (str) => {
 
 // pid (Passport ID) - a nine-digit number, including leading zeroes.
 const isPassportId = (str) => {
-  return /^([0-9]{9})$/.test(str);
+  return /^[0-9]{9}$/.test(str);
 };
 
 const countPassports = () => {

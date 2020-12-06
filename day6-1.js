@@ -1,5 +1,3 @@
-const { group, count } = require("console");
-
 const getGroupStringsFromFile = () => {
   return require("fs")
     .readFileSync("./day6-input.txt", "utf8")
@@ -28,14 +26,9 @@ const countAnswersInGroup = (group) => {
 };
 
 const countAnswersInAllGroups = () => {
-  const groups = getGroupsFromFile();
   let count = 0;
-
-  for (let group of groups) {
-    count += countAnswersInGroup(group);
-  }
-
+  getGroupsFromFile().forEach((group) => (count += countAnswersInGroup(group)));
   return count;
 };
 
-console.log(countAnswersInAllGroups());
+console.log(`The answer is ${countAnswersInAllGroups()}`);

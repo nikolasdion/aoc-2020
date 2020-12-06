@@ -17,53 +17,46 @@ const getSeatNumberFromLine = (line) => {
 };
 
 const rowFromStr = (str) => {
-  const binaryStr = [...str].map(binaryRowChar).join("");
-  return parseInt(binaryStr, 2);
-};
-
-const binaryRowChar = (char) => {
-  if (char === "B") {
-    return "1";
-  } else if (char === "F") {
-    return "0";
-  } else {
-    console.log("INVALID CHARACTER IN ROW STRING");
-  }
+  return numberFromStr(str, "F", "B");
 };
 
 const columnFromStr = (str) => {
-  const binaryStr = [...str].map(binaryColumnChar).join("");
+  return numberFromStr(str, "L", "R");
+};
+
+const numberFromStr = (str, char0, char1) => {
+  const binaryStr = [...str]
+    .map((char) => charToBinaryStr(char, char0, char1))
+    .join("");
   return parseInt(binaryStr, 2);
 };
 
-const binaryColumnChar = (char) => {
-  if (char === "R") {
-    return "1";
-  } else if (char === "L") {
+const charToBinaryStr = (char, char0, char1) => {
+  if (char === char0) {
     return "0";
+  } else if (char1) {
+    return "1";
   } else {
-    console.log("INVALID CHARACTER IN COLUMN STRING");
+    console.log("INVALID CHARACTER IN STRING");
   }
 };
 
 const getYourSeatNumber = () => {
   const occupiedSeats = getLinesFromFile().map(getSeatNumberFromLine);
-  let possibleSeats = getPossibleSeats(
+  const possibleSeats = getPossibleSeats(
     Math.min(...occupiedSeats),
     Math.max(...occupiedSeats)
   );
 
-  occupiedSeats.forEach((occupiedSeat) => {
-    possibleSeats = possibleSeats.filter(
-      (possibleSeat) => possibleSeat !== occupiedSeat
-    );
-  });
+  const unoccupiedSeats = possibleSeats.filter(
+    (seat) => !occupiedSeats.includes(seat)
+  );
 
-  if (possibleSeats.length !== 1) {
-    console.log(`MORE THAN ONE POSSIBLE SEATS FOUND ${possibleSeats}`);
+  if (unoccupiedSeats.length !== 1) {
+    console.log(`MORE THAN ONE UNOCCUPIED SEATS FOUND ${unoccupiedSeats}`);
   }
 
-  return possibleSeats[0];
+  return unoccupiedSeats[0];
 };
 
 const getPossibleSeats = (min, max) => {

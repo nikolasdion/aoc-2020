@@ -14,32 +14,27 @@ const getSeatNumberFromLine = (line) => {
 };
 
 const rowFromStr = (str) => {
-  const binaryStr = [...str].map(binaryRowChar).join("");
-  return parseInt(binaryStr, 2);
-};
-
-const binaryRowChar = (char) => {
-  if (char === "B") {
-    return "1";
-  } else if (char === "F") {
-    return "0";
-  } else {
-    console.log("INVALID CHARACTER IN ROW STRING");
-  }
+  return numberFromStr(str, "F", "B");
 };
 
 const columnFromStr = (str) => {
-  const binaryStr = [...str].map(binaryColumnChar).join("");
+  return numberFromStr(str, "L", "R");
+};
+
+const numberFromStr = (str, char0, char1) => {
+  const binaryStr = [...str]
+    .map((char) => charToBinaryStr(char, char0, char1))
+    .join("");
   return parseInt(binaryStr, 2);
 };
 
-const binaryColumnChar = (char) => {
-  if (char === "R") {
+const charToBinaryStr = (char, char0, char1) => {
+  if (char === char1) {
     return "1";
-  } else if (char === "L") {
+  } else if (char0) {
     return "0";
   } else {
-    console.log("INVALID CHARACTER IN COLUMN STRING");
+    console.log("INVALID CHARACTER IN ROW STRING");
   }
 };
 

@@ -25,13 +25,13 @@ const countTrees = (treeMatrix) => {
   let currentColumn = 0;
   let treeCount = 0;
 
-  for (row of treeMatrix) {
-    console.log(row[currentColumn]);
-    if (row[currentColumn]) {
-      treeCount++;
-    }
+  treeMatrix.forEach((row) => {
+    treeCount += row[currentColumn] ? 1 : 0;
+    // if (row[currentColumn]) {
+    //   treeCount++;
+    // }
     currentColumn = getNextColumn(currentColumn, treeMatrix);
-  }
+  });
 
   return treeCount;
 };
